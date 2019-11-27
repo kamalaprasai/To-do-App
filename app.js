@@ -1,21 +1,31 @@
 function onReady() {
+  const addToDoForm = document.getElementById('addToDoForm');
+  const newToDoText = document.getElementById('newToDoText');
+  const toDoList = document.getElementById('toDoList');
 
-  const ADD_TODO_FORM = document.getElementById('addToDoForm');
-  const NEW_TODO_TEXT = document.getElementById('newToDoText');
-  const TODO_LIST = document.getElementById('toDoList');
-
-
-  ADD_TODO_FORM.addEventListener('submit', (event) => {
+  addToDoForm.addEventListener('submit', () => {
     event.preventDefault();
 
     // get the text
-    let title = NEW_TODO_TEXT.value;
+    let title = newToDoText.value;
+
     // create a new li
     let newLi = document.createElement('li');
-    //  create a new input
+
+    // create a new input
     let checkbox = document.createElement('input');
+
     // set the input's type to checkbox
     checkbox.type = "checkbox";
+
+    // create a delete button
+    let deleteButton = document.createElement('button');
+
+    deleteButton.textContent = "Delete";
+
+    deleteButton.addEventListener('click', function (event) {
+      toDoList.removeChild(this.parentElement);
+    });
 
     // set the title
     newLi.textContent = title;
@@ -23,16 +33,16 @@ function onReady() {
     // attach the checkbox to the li
     newLi.appendChild(checkbox);
 
+    newLi.appendChild(deleteButton);
+
     // attach the li to the ul
-    TODO_LIST.appendChild(newLi);
+    toDoList.appendChild(newLi);
 
-    // empty the input
-    NEW_TODO_TEXT.value = "";
-
+    //empty the input
+    newToDoText.value = '';
   });
+}
 
-};
-
-window.onload = function() {
+window.onload = function () {
   onReady();
 };
